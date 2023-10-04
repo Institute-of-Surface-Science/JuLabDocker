@@ -85,7 +85,7 @@ WORKDIR /root/build/
 RUN git clone https://github.com/sympy/sympy.git
 WORKDIR /root/build/sympy/
 RUN git pull origin master
-RUN python3 setupegg.py develop
+RUN pip3 install .
 
 WORKDIR /root/build/
 RUN git clone https://github.com/precice/precice/
