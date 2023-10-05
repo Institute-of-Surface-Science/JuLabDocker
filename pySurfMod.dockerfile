@@ -172,7 +172,7 @@ RUN pip3 install .
 #newer version of pymatgen forces broken numpy package
 #RUN mamba install -c conda-forge scikit-learn pymatgen=2020.9.14
 
-RUN pip3 install Cython==0.29.36
+RUN pip3 install Cython==0.29.36 tables==3.8.0
 RUN pip3 install tensorflow phonopy==2.14.0
 RUN pip3 install pyiron-atomistics==0.2.67 pyiron==0.4.7
 RUN pip3 install jupyterlab jupyterhub jupyterlab_widgets
