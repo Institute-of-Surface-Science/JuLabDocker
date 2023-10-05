@@ -173,7 +173,7 @@ RUN pip3 install .
 #RUN mamba install -c conda-forge scikit-learn pymatgen=2020.9.14
 
 RUN pip3 install tensorflow phonopy==2.14.0
-RUN pip3 install jupyterlab jupyterhub 
+RUN pip3 install jupyterlab jupyterhub jupyterlab_widgets
 RUN pip3 install pyiron-atomistics==0.2.67 pyiron==0.4.7
 #sphinxdft sqsgenerator #needed?
 RUN pip3 install scikit-learn pymatgen
@@ -184,11 +184,6 @@ RUN pip3 install torch torchvision torchaudio --extra-index-url https://download
 #RUN conda install -c conda-forge jupyter-archive
 #currently not compatible with the newest version of jupyterlab
 #RUN conda install -c conda-forge jupyterlab-git
-
-
-# manual installation steps for conda modules
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build
-RUN jupyter-nbextension enable nglview --py --sys-prefix
 
 # todo: get pyiron configuration file...
 
