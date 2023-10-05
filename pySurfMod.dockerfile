@@ -174,7 +174,7 @@ RUN pip3 install .
 
 RUN pip3 install tensorflow phonopy==2.14.0
 RUN pip3 install jupyterlab jupyterhub 
-RUN pip3 install pyiron==0.4.7
+RUN pip3 install pyiron-atomistics==0.2.67 pyiron==0.4.7
 #sphinxdft sqsgenerator #needed?
 RUN pip3 install scikit-learn pymatgen
 RUN pip3 install keras
