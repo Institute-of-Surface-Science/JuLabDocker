@@ -173,8 +173,8 @@ RUN pip3 install .
 #RUN mamba install -c conda-forge scikit-learn pymatgen=2020.9.14
 
 RUN pip3 install tensorflow phonopy==2.14.0
-RUN pip3 install jupyterlab jupyterhub jupyterlab_widgets
 RUN pip3 install Cython==0.29.36 pyiron-atomistics==0.2.67 pyiron==0.4.7
+RUN pip3 install jupyterlab jupyterhub jupyterlab_widgets
 #sphinxdft sqsgenerator #needed?
 RUN pip3 install scikit-learn pymatgen
 RUN pip3 install keras
