@@ -21,13 +21,21 @@ jobs:
 
       - id: check-mom-ubuntu
         run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^mom_ubuntu.dockerfile$'
-          echo "::set-output name=changed::$(if [ $? -eq 0 ]; then echo 'true'; else echo 'false'; fi)"
+          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep '^mom_ubuntu.dockerfile$' || true)
+          if [[ -z "$CHANGED" ]]; then
+            echo "::set-output name=changed::false"
+          else
+            echo "::set-output name=changed::true"
+          fi
 
       - id: check-pysurfmod
         run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^pySurfMod.dockerfile$'
-          echo "::set-output name=changed::$(if [ $? -eq 0 ]; then echo 'true'; else echo 'false'; fi)"
+          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep '^pySurfMod.dockerfile$' || true)
+          if [[ -z "$CHANGED" ]]; then
+            echo "::set-output name=changed::false"
+          else
+            echo "::set-output name=changed::true"
+          fi
 
   build_mom_ubuntu:
     needs: check_changes
