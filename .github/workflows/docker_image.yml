@@ -14,28 +14,25 @@ jobs:
     outputs:
       mom_ubuntu_changed: ${{ steps.check-mom-ubuntu.outputs.changed }}
       pysurfmod_changed: ${{ steps.check-pysurfmod.outputs.changed }}
-
+  
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+        with:
+          fetch-depth: 2
+  
       - id: check-mom-ubuntu
         run: |
-          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep '^mom_ubuntu.dockerfile$' || true)
-          if [[ -z "$CHANGED" ]]; then
-            echo "::set-output name=changed::false"
-          else
-            echo "::set-output name=changed::true"
-          fi
-
+          git diff --name-only HEAD~1 HEAD | grep 'mom_ubuntu.dockerfile'
+          echo "::set-output name=changed::true"
+        continue-on-error: true
+  
       - id: check-pysurfmod
         run: |
-          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep '^pySurfMod.dockerfile$' || true)
-          if [[ -z "$CHANGED" ]]; then
-            echo "::set-output name=changed::false"
-          else
-            echo "::set-output name=changed::true"
-          fi
+          git diff --name-only HEAD~1 HEAD | grep 'pySurfMod.dockerfile'
+          echo "::set-output name=changed::true"
+        continue-on-error: true
+
 
   build_mom_ubuntu:
     needs: check_changes
