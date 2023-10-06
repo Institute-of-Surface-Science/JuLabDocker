@@ -9,9 +9,30 @@ on:
       - 'pySurfMod.dockerfile'
 
 jobs:
-  build_mom_ubuntu:
+  check_changes:
     runs-on: ubuntu-latest
-    if: contains(github.event.compare, 'mom_ubuntu.dockerfile')
+    outputs:
+      mom_ubuntu_changed: ${{ steps.check-mom-ubuntu.outputs.changed }}
+      pysurfmod_changed: ${{ steps.check-pysurfmod.outputs.changed }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - id: check-mom-ubuntu
+        run: |
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^mom_ubuntu.dockerfile$'
+          echo "::set-output name=changed::$(if [ $? -eq 0 ]; then echo 'true'; else echo 'false'; fi)"
+
+      - id: check-pysurfmod
+        run: |
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^pySurfMod.dockerfile$'
+          echo "::set-output name=changed::$(if [ $? -eq 0 ]; then echo 'true'; else echo 'false'; fi)"
+
+  build_mom_ubuntu:
+    needs: check_changes
+    runs-on: ubuntu-latest
+    if: needs.check_changes.outputs.mom_ubuntu_changed == 'true'
     
     steps:
     - name: Checkout code
@@ -38,9 +59,9 @@ jobs:
         tags: svchb/mom_ubuntu:latest
 
   build_pySurfMod:
-    needs: build_mom_ubuntu
+    needs: check_changes
     runs-on: ubuntu-latest
-    if: contains(github.event.compare, 'pySurfMod.dockerfile')
+    if: needs.check_changes.outputs.pysurfmod_changed == 'true'
     
     steps:
     - name: Checkout code
