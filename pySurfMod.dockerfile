@@ -1,25 +1,4 @@
-FROM ubuntu:20.04
-# Fix the installation of tzdata for Ubuntu 20.04
-ARG TIMEZONE=Europe/Berlin
-RUN export TZ=$TIMEZONE && echo $TZ > /etc/timezone && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
-    apt-get -yy update && apt-get -yy install wget tzdata
-
-# install build env
-RUN apt-get install -y apt-utils
-RUN apt-get update && yes|apt-get upgrade
-RUN apt-get update && apt-get install -y wget bzip2 sudo curl vim software-properties-common libssl-dev
-RUN apt-get update && apt-get install -y git-all cmake build-essential gcc-10 g++-10 gfortran-10 clang-10 libboost-all-dev libopenmpi-dev libparmetis-dev libparmetis4.0 libsuitesparse-dev libmumps-dev libmumps-ptscotch-dev libmumps-scotch-dev libgmp3-dev libmpfr-dev libmpfr-doc libmpfr6 libhypre-dev petsc-dev libxml2-dev pkg-config python3-mpi4py
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y keyboard-configuration
-RUN apt-get update && apt-get install -y paraview paraview-dev vtk7 libhdf5-dev hdf5-tools gpaw gpaw-data lammps lammps-data lammps-examples liblammps-dev
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes intel-mkl-full
-RUN apt-get update && yes|apt-get upgrade
-RUN curl -sL https://deb.nodesource.com/setup_12.x -o /tmp/nodesource_setup.sh
-RUN bash /tmp/nodesource_setup.sh
-RUN sudo apt install nodejs
-
-RUN apt-get update && apt install software-properties-common
-RUN apt-add-repository ppa:cantera-team/cantera
-RUN apt-get update && apt install -y cantera-python3 cantera-dev cantera-common python3-pip
+FROM svchb/mom_ubuntu:latest
 
 # add a pseudo user to get the paths correctly and deactivate passwords to get arround prompts
 #RUN adduser --disabled-password --gecos '' ubuntu
