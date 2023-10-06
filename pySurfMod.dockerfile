@@ -205,10 +205,10 @@ RUN pip3 install torch torchvision torchaudio --extra-index-url https://download
 #RUN make pythonModule
 #RUN make pythonModuleInstall
 
-WORKDIR /root/build/
-RUN git clone https://github.com/bmcage/odes.git odes
-WORKDIR /root/build/odes/
-RUN pip3 install .
+#WORKDIR /root/build/
+#RUN git clone https://github.com/bmcage/odes.git odes
+#WORKDIR /root/build/odes/
+#RUN pip3 install .
 
 #RUN pip3 install nutils
 #RUN pip3 install fenics-ffc
