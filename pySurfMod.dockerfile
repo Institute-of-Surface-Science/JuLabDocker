@@ -214,17 +214,17 @@ RUN pip3 install torch torchvision torchaudio --extra-index-url https://download
 #RUN ln -s /usr/local/lib/libprecice.so.2.2.0 libprecice.so.2.2.0
 
 #RUN pip3 install -I numpy==1.18.5
-RUN pip3 install lbmpy interactive
-RUN pip3 install pystencils
-WORKDIR /root/build/
-RUN git clone https://i10git.cs.fau.de/walberla/walberla.git
-WORKDIR /root/build/
-RUN mkdir walberla_build
-WORKDIR /root/build/walberla_build
-RUN CC=gcc-10 CXX=g++-10 cmake -DWALBERLA_BUILD_WITH_PYTHON=on ../walberla
-RUN make -j 12
-RUN make pythonModule
-RUN make pythonModuleInstall
+#RUN pip3 install lbmpy interactive
+#RUN pip3 install pystencils
+#WORKDIR /root/build/
+#RUN git clone https://i10git.cs.fau.de/walberla/walberla.git
+#WORKDIR /root/build/
+#RUN mkdir walberla_build
+#WORKDIR /root/build/walberla_build
+#RUN CC=gcc-10 CXX=g++-10 cmake -DWALBERLA_BUILD_WITH_PYTHON=on ../walberla
+#RUN make -j 12
+#RUN make pythonModule
+#RUN make pythonModuleInstall
 
 WORKDIR /root/build/
 RUN git clone https://github.com/bmcage/odes.git odes
