@@ -263,10 +263,10 @@ RUN echo 'bash' >> /root/.profile
 
 RUN mkdir /root/notebooks
 WORKDIR /root/notebooks
-RUN rm -r -f examples
-RUN git clone http://10.200.87.214/institute-of-surface-science/modeling/platform/examples.git
-RUN git clone http://10.200.87.214/institute-of-surface-science/modeling/Corrosionfracturecoupling.git
-RUN pwd
+#RUN rm -r -f examples
+#RUN git clone http://10.200.87.214/institute-of-surface-science/modeling/platform/examples.git
+#RUN git clone http://10.200.87.214/institute-of-surface-science/modeling/Corrosionfracturecoupling.git
+#RUN pwd
 WORKDIR /root
 #RUN jupyter notebook --generate-config --allow-root
 RUN jupyter lab --generate-config --allow-root
