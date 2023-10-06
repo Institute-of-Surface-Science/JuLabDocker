@@ -76,7 +76,7 @@ RUN mkdir precice_build
 WORKDIR /root/build/precice_build
 #RUN export CXXFLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/
 RUN CC=gcc-10 CXX=g++-10 cmake -DCMAKE_CXX_FLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/ -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON ../precice
-RUN make install -j 12
+RUN make install -j 4
 
 RUN pip3 install nutils
 RUN pip3 install fenics-ffc --upgrade
@@ -185,7 +185,7 @@ RUN pip3 install torch torchvision torchaudio --extra-index-url https://download
 #WORKDIR /root/build/precice_build
 ##RUN export CXXFLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/
 #RUN CC=gcc-10 CXX=g++-10 cmake -DCMAKE_CXX_FLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/ #-DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON ../precice
-#RUN make install -j 12
+#RUN make install -j 4
 
 #WORKDIR /root/anaconda3/lib
 #RUN ln -s /usr/local/lib/libprecice.so libprecice.so
@@ -201,7 +201,7 @@ RUN pip3 install torch torchvision torchaudio --extra-index-url https://download
 #RUN mkdir walberla_build
 #WORKDIR /root/build/walberla_build
 #RUN CC=gcc-10 CXX=g++-10 cmake -DWALBERLA_BUILD_WITH_PYTHON=on ../walberla
-#RUN make -j 12
+#RUN make -j 4
 #RUN make pythonModule
 #RUN make pythonModuleInstall
 
