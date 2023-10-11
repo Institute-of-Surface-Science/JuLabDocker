@@ -63,7 +63,7 @@ jobs:
         context: .
         file: ./mom_ubuntu.dockerfile
         push: true
-        tags: svchb/mom_ubuntu:latest
+        tags: svchb/mom_ubuntu:latest, svchb/mom_ubtuntu:20.04, svchb/mom_ubuntu:v1
 
   build_pySurfMod:
     needs: check_changes
@@ -92,4 +92,4 @@ jobs:
         context: .
         file: ./pySurfMod.dockerfile
         push: true
-        tags: svchb/surface_science_mom:latest
+        tags: svchb/surface_science_mom:latest, svchb/surface_science_mom:20.04, svchb/surface_science_mom:v1
