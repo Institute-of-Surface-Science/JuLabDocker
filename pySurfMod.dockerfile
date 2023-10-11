@@ -252,6 +252,9 @@ RUN pip3 install torch torchvision torchaudio --extra-index-url https://download
 #RUN git checkout tags/v2.2.0.1
 #RUN python3 setup.py install
 
+WORKDIR /root/
+RUN rm -r build
+
 RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> /root/.profile
 RUN echo 'bash' >> /root/.profile
 
