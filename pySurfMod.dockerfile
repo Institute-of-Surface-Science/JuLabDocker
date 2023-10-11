@@ -15,6 +15,8 @@ RUN rm fftw-3.3.10.tar.gz
 WORKDIR /root/fftw-3.3.10
 RUN ./configure --enable-mpi
 RUN make && make install
+WORKDIR /root/
+RUN rm -r fftw*
 
 WORKDIR /root/build/
 RUN git clone https://github.com/mpip/pfft.git
