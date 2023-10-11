@@ -1,4 +1,4 @@
-FROM svchb/mom_ubuntu:u20.04
+FROM svchb/mom_ubuntu:v1
 
 # add a pseudo user to get the paths correctly and deactivate passwords to get arround prompts
 #RUN adduser --disabled-password --gecos '' ubuntu
