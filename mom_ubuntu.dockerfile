@@ -21,6 +21,5 @@ RUN apt-add-repository ppa:cantera-team/cantera && apt-get install -y cantera-py
 
 # install JULIA
 RUN curl -fsSL https://install.julialang.org | sh -s -- -y
-RUN juliaup update
 ENV PATH="/root/.julia/juliaup:$PATH"
 
