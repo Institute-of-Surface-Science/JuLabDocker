@@ -19,54 +19,30 @@ RUN wget https://www.fftw.org/fftw-3.3.10.tar.gz && \
     rm -r fftw-3.3.10
 
 WORKDIR /root/build/
-RUN git clone https://github.com/mpip/pfft.git
-WORKDIR /root/build/pfft
-RUN ./bootstrap.sh
-RUN ./configure
-RUN make && make install
+RUN git clone https://github.com/mpip/pfft.git && \
+    cd pfft && \
+    ./bootstrap.sh && ./configure && make && make install
 
 # install sundials
 WORKDIR /root/
-RUN wget https://github.com/LLNL/sundials/releases/download/v5.7.0/sundials-5.7.0.tar.gz
-RUN tar -xzf sundials-5.7.0.tar.gz
-RUN rm sundials-5.7.0.tar.gz
-RUN mkdir build_sundials
-WORKDIR /root/build_sundials/
-RUN cmake ../sundials-5.7.0/
-RUN make
-RUN make install
-WORKDIR /root/
-RUN rm -r build_sundials
-RUN rm -r sundials-5.7.0
+RUN wget https://github.com/LLNL/sundials/releases/download/v5.7.0/sundials-5.7.0.tar.gz && \
+    tar -xzf sundials-5.7.0.tar.gz && \
+    mkdir build_sundials && \
+    cd build_sundials && \
+    cmake ../sundials-5.7.0/ && make && make install && \
+    cd .. && rm -rf build_sundials sundials-5.7.0 sundials-5.7.0.tar.gz
 
 # install libeigen
-#RUN mkdir build
 WORKDIR /root/build/
-RUN chmod a+rwx /root/build/
-RUN git clone https://gitlab.com/libeigen/eigen.git
-WORKDIR /root/build/eigen/
-RUN git checkout tags/3.3.9
-WORKDIR /root/build/
-RUN mkdir eigen_build
-WORKDIR /root/build/eigen_build
-RUN CC=gcc-10 CXX=g++-10 cmake ../eigen
-#RUN make blas
-RUN make install
-
-#WORKDIR /root/build/
-#RUN git clone https://github.com/numpy/numpy/
-#WORKDIR /root/build/numpy/
-#RUN git checkout tags/v1.19.2
-#RUN pip3 install cython
-#RUN python3 setup.py build -j 4 install
+RUN git clone https://gitlab.com/libeigen/eigen.git && \
+    cd eigen && git checkout tags/3.3.9 && \
+    mkdir ../eigen_build && cd ../eigen_build && \
+    CC=gcc-10 CXX=g++-10 cmake ../eigen && make install
 
 RUN pip3 install setuptools pytest
 
 WORKDIR /root/build/
-RUN git clone https://github.com/sympy/sympy.git
-WORKDIR /root/build/sympy/
-RUN git pull origin master
-RUN pip3 install .
+RUN git clone https://github.com/sympy/sympy.git && cd sympy && git pull origin master && pip3 install .
 
 WORKDIR /root/build/
 RUN git clone https://github.com/precice/precice/
