@@ -106,142 +106,34 @@ RUN git clone https://github.com/precice/python-bindings/ && \
 #RUN apt-get update
 #RUN apt install -y sagemath sagemath-common sagemath-jupyter
 
-
-# install anaconda
-#RUN wget https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh
-#RUN bash Anaconda3-2020.11-Linux-x86_64.sh -b
-#RUN rm Anaconda3-2020.11-Linux-x86_64.sh
-
-#ENV PATH /root/anaconda3/bin:$PATH
-
-# update anaconda env
-#RUN conda config --add channels conda-forge
-#RUN conda config --set channel_priority strict
-#RUN conda update conda && conda update anaconda && conda update --all
-
-
-# install conda packages
-#RUN conda install -c conda-forge mamba
-#RUN mamba install numpy
-#RUN mamba install -c conda-forge python
-#RUN mamba install --override-channels -c main -c conda-forge jupyterlab jupyterhub
-#RUN mamba install -c conda-forge jupyterhub 
-#RUN mamba install -c pyiron sphinxdft sqsgenerator
-#newer version of pymatgen forces broken numpy package
-#RUN mamba install -c conda-forge scikit-learn pymatgen=2020.9.14
-
-RUN pip3 install Cython==0.29.36 tables==3.8.0
-RUN pip3 install tensorflow phonopy==2.14.0
-RUN pip3 install pyiron-atomistics==0.2.67 pyiron==0.4.7
-RUN pip3 install jupyterlab jupyterhub jupyterlab_widgets
-#sphinxdft sqsgenerator #needed?
-RUN pip3 install scikit-learn pymatgen
-RUN pip3 install keras
+RUN pip3 install \
+    Cython==0.29.36 \
+    tables==3.8.0 \
+    tensorflow \
+    phonopy==2.14.0 \
+    pyiron-atomistics==0.2.67 \
+    pyiron==0.4.7 \
+    jupyterlab \
+    jupyterhub \
+    jupyterlab_widgets \
+    scikit-learn \
+    pymatgen \
+    keras \
+    ipyannotations \
+    nglview
 RUN pip3 install ipyannotations nglview
 RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
-
-#RUN conda install -c conda-forge jupyter-archive
-#currently not compatible with the newest version of jupyterlab
-#RUN conda install -c conda-forge jupyterlab-git
-
-# todo: get pyiron configuration file...
-
-#RUN conda init bash
-#RUN cp /usr/local/lib/pkgconfig/* /usr/lib/x86_64-linux-gnu/pkgconfig/
-#RUN cp /usr/lib/x86_64-linux-gnu/pkgconfig/* /usr/local/share/pkgconfig/
-#RUN cp /usr/local/share/pkgconfig/* /usr/share/pkgconfig/
-#RUN cp /usr/local/share/pkgconfig/* /root/anaconda3/lib/pkgconfig/
-#RUN cp /usr/lib/x86_64-linux-gnu/pkgconfig/* /root/anaconda3/share/pkgconfig/
-#RUN echo 'export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/' >> /root/.bashrc
-
-#WORKDIR /root/build/
-#RUN git clone https://github.com/precice/precice/
-#WORKDIR /root/build/precice/
-#RUN git checkout tags/v2.2.0
-##RUN conda install -c conda-forge petsc
-#WORKDIR /root/build/
-#RUN mkdir precice_build
-#WORKDIR /root/build/precice_build
-##RUN export CXXFLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/
-#RUN CC=gcc-10 CXX=g++-10 cmake -DCMAKE_CXX_FLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/ #-DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON ../precice
-#RUN make install -j 4
-
-#WORKDIR /root/anaconda3/lib
-#RUN ln -s /usr/local/lib/libprecice.so libprecice.so
-#RUN ln -s /usr/local/lib/libprecice.so.2 libprecice.so.2
-#RUN ln -s /usr/local/lib/libprecice.so.2.2.0 libprecice.so.2.2.0
-
-#RUN pip3 install -I numpy==1.18.5
-#RUN pip3 install lbmpy interactive
-#RUN pip3 install pystencils
-#WORKDIR /root/build/
-#RUN git clone https://i10git.cs.fau.de/walberla/walberla.git
-#WORKDIR /root/build/
-#RUN mkdir walberla_build
-#WORKDIR /root/build/walberla_build
-#RUN CC=gcc-10 CXX=g++-10 cmake -DWALBERLA_BUILD_WITH_PYTHON=on ../walberla
-#RUN make -j 4
-#RUN make pythonModule
-#RUN make pythonModuleInstall
 
 #WORKDIR /root/build/
 #RUN git clone https://github.com/bmcage/odes.git odes
 #WORKDIR /root/build/odes/
 #RUN pip3 install .
 
-#RUN pip3 install nutils
-#RUN pip3 install fenics-ffc
-#WORKDIR /root/build/
-#RUN wget -nc --quiet https://github.com/pybind/pybind11/archive/v2.2.3.tar.gz
-#RUN tar -xf v2.2.3.tar.gz 
-#RUN rm v2.2.3.tar.gz
-#RUN mkdir pybind_build
-#WORKDIR /root/build/pybind_build
-#RUN CC=gcc-10 CXX=g++-10 cmake ../pybind11-2.2.3
-#RUN make install
-#WORKDIR /root/build/
-#RUN git clone https://bitbucket.org/fenics-project/dolfin
-#WORKDIR /root/build/dolfin
-#RUN git checkout tags/2019.1.0
-#WORKDIR /root/build/
-#RUN git clone https://bitbucket.org/fenics-project/mshr
-#WORKDIR /root/build/mshr
-#RUN git checkout tags/2019.1.0
-#WORKDIR /root/build/
-#RUN mkdir dolphin_build
-#RUN mkdir mshr_build
-#WORKDIR /root/build/dolphin_build
-#Note this is a bug with dolfin which doesnot support newer releases of sundials...
-#RUN CC=gcc-10 CXX=g++-10 cmake -DDOLFIN_ENABLE_SUNDIALS=false ../dolfin
-#RUN make install
-#WORKDIR /root/build/dolfin/python
-#RUN pip3 install .
-#WORKDIR /root/build/mshr_build
-#RUN CC=gcc-10 CXX=g++-10 cmake ../mshr
-#RUN make install
-#WORKDIR /root/build/mshr/python
-#RUN pip3 install .
-
-
-#WORKDIR /root/build/
-#RUN git clone https://github.com/precice/python-bindings/
-#WORKDIR /root/build/python-bindings/
-#RUN git checkout tags/v2.2.0.1
-#RUN python3 setup.py install
-
 WORKDIR /root/
 RUN rm -r build
 
 RUN echo 'export LD_LIBRARY_PATH=/usr/local/lib' >> /root/.profile
 RUN echo 'bash' >> /root/.profile
-
-#RUN cp /usr/local/lib/pkgconfig/* /usr/lib/x86_64-linux-gnu/pkgconfig/
-#RUN cp /usr/lib/x86_64-linux-gnu/pkgconfig/* /usr/local/share/pkgconfig/
-#RUN cp /usr/local/share/pkgconfig/* /usr/share/pkgconfig/
-#RUN cp /usr/local/share/pkgconfig/* /root/anaconda3/lib/pkgconfig/
-#RUN cp /usr/lib/x86_64-linux-gnu/pkgconfig/* /root/anaconda3/share/pkgconfig/
-#RUN echo 'export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/' >> /root/.bashrc
-
 
 RUN mkdir /root/notebooks
 WORKDIR /root/notebooks
@@ -260,7 +152,3 @@ EXPOSE 8888
 
 
 CMD ["jupyter", "lab", "--notebook-dir=/root/notebooks", "--ip='*'", "--port=8888", "--allow-root", "--no-browser"]
-
-# doesn't currently work as intended
-#CMD ["jupyter", "lab", "--notebook-dir=/root/notebooks", "--ip='*'" "--port=8888", "--allow-root", "--no-browser"]
-#CMD ["jupyterhub", "--Spawner.notebook-dir='/home/ubuntu/notebooks'", "--ip 10.200.87.214", "--port 8888", "--no-browser"]
