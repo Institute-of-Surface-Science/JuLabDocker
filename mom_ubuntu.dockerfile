@@ -12,14 +12,18 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libmumps-dev libmumps-ptscotch-dev libmumps-scotch-dev libgmp3-dev libmpfr-dev libmpfr-doc \
     libmpfr6 libhypre-dev petsc-dev libxml2-dev pkg-config python3-mpi4py keyboard-configuration \
     paraview paraview-dev vtk7 libhdf5-dev hdf5-tools gpaw gpaw-data lammps lammps-data lammps-examples \
-    liblammps-dev python3-pip paraview
+    liblammps-dev python3-pip paraview \
+    intel-mkl-full && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*  # Cleanup cache to reduce layer size
 
-# install from none standard repos
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes intel-mkl-full
+# Install Node.js
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get install -y nodejs
-RUN apt-add-repository ppa:cantera-team/cantera && apt-get install -y cantera-python3 cantera-dev cantera-common
 
-# install JULIA
+# Install Cantera
+RUN apt-add-repository ppa:cantera-team/cantera && apt-get update && apt-get install -y cantera-python3 cantera-dev cantera-common && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*  # Cleanup cache again after Cantera installation
+
+# Install JULIA
 RUN curl -fsSL https://install.julialang.org | sh -s -- -y
-ENV PATH="/root/.julia/juliaup:$PATH"
 
+ENV PATH="/root/.julia/juliaup:$PATH"
