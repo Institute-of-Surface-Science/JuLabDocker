@@ -45,61 +45,56 @@ WORKDIR /root/build/
 RUN git clone https://github.com/sympy/sympy.git && cd sympy && git pull origin master && pip3 install .
 
 WORKDIR /root/build/
-RUN git clone https://github.com/precice/precice/
-WORKDIR /root/build/precice/
-RUN git checkout tags/v2.2.0
-#RUN conda install -c conda-forge petsc
-WORKDIR /root/build/
-RUN mkdir precice_build
-WORKDIR /root/build/precice_build
-#RUN export CXXFLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/
-RUN CC=gcc-10 CXX=g++-10 cmake -DCMAKE_CXX_FLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/ -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON ../precice
-RUN make install -j 4
 
-RUN pip3 install nutils
-RUN pip3 install fenics-ffc --upgrade
-WORKDIR /root/build/
-RUN wget -nc --quiet https://github.com/pybind/pybind11/archive/v2.2.3.tar.gz
-RUN tar -xf v2.2.3.tar.gz 
-RUN rm v2.2.3.tar.gz
-RUN mkdir pybind_build
-WORKDIR /root/build/pybind_build
-RUN CC=gcc-10 CXX=g++-10 cmake ../pybind11-2.2.3
-RUN make install
-WORKDIR /root/build/
-RUN git clone https://bitbucket.org/fenics-project/dolfin
-WORKDIR /root/build/dolfin
-RUN git checkout tags/2019.1.0.post0
-WORKDIR /root/build/
-RUN git clone https://bitbucket.org/fenics-project/mshr
-WORKDIR /root/build/mshr
-RUN git checkout tags/2019.1.0
-WORKDIR /root/build/
-RUN mkdir dolphin_build
-RUN mkdir mshr_build
-WORKDIR /root/build/dolphin_build
-#Note this is a bug with dolfin which doesnot support newer releases of sundials...
-RUN CC=gcc-10 CXX=g++-10 cmake -DDOLFIN_ENABLE_SUNDIALS=false ../dolfin
-RUN make install
-WORKDIR /root/build/dolfin/python
-RUN pip3 install .
-WORKDIR /root/build/mshr_build
-RUN CC=gcc-10 CXX=g++-10 cmake ../mshr
-RUN make install
-WORKDIR /root/build/mshr/python
-RUN pip3 install .
+# Install precice
+RUN git clone https://github.com/precice/precice/ && \
+    cd precice && \
+    git checkout tags/v2.2.0 && \
+    mkdir ../precice_build && \
+    cd ../precice_build && \
+    CC=gcc-10 CXX=g++-10 cmake -DCMAKE_CXX_FLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/ -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON ../precice && \
+    make install -j 4
 
-WORKDIR /root/build/
-RUN git clone https://github.com/precice/python-bindings/
-WORKDIR /root/build/python-bindings/
-RUN git checkout tags/v2.2.0.1
-RUN python3 setup.py install
+# Install additional python packages
+RUN pip3 install nutils fenics-ffc --upgrade
 
-WORKDIR /root/build/
-RUN git clone https://github.com/precice/fenics-adapter
-WORKDIR /root/build/fenics-adapter
-RUN git checkout tags/v1.0.1
-RUN pip3 install .
+# Install pybind
+RUN wget -nc --quiet https://github.com/pybind/pybind11/archive/v2.2.3.tar.gz && \
+    tar -xf v2.2.3.tar.gz && \
+    rm v2.2.3.tar.gz && \
+    mkdir pybind_build && \
+    cd pybind_build && \
+    CC=gcc-10 CXX=g++-10 cmake ../pybind11-2.2.3 && \
+    make install
+
+# Install fenics and mshr
+RUN git clone https://bitbucket.org/fenics-project/dolfin && \
+    cd dolfin && \
+    git checkout tags/2019.1.0.post0 && \
+    mkdir ../dolphin_build && \
+    cd ../dolphin_build && \
+    CC=gcc-10 CXX=g++-10 cmake -DDOLFIN_ENABLE_SUNDIALS=false ../dolfin && \
+    make install && \
+    pip3 install ./dolfin/python && \
+    git clone https://bitbucket.org/fenics-project/mshr ../mshr && \
+    cd ../mshr && \
+    git checkout tags/2019.1.0 && \
+    mkdir ../mshr_build && \
+    cd ../mshr_build && \
+    CC=gcc-10 CXX=g++-10 cmake ../mshr && \
+    make install && \
+    pip3 install ../mshr/python
+
+# Install precice python-bindings and fenics-adapter
+RUN git clone https://github.com/precice/python-bindings/ && \
+    cd python-bindings && \
+    git checkout tags/v2.2.0.1 && \
+    python3 setup.py install && \
+    git clone https://github.com/precice/fenics-adapter ../fenics-adapter && \
+    cd ../fenics-adapter && \
+    git checkout tags/v1.0.1 && \
+    pip3 install .
+
 
 #todo: install sagemath
 #RUN apt-get update
