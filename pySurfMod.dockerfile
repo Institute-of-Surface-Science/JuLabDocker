@@ -67,20 +67,26 @@ RUN wget -nc --quiet https://github.com/pybind/pybind11/archive/v2.2.3.tar.gz &&
     CC=gcc-10 CXX=g++-10 cmake ../pybind11-2.2.3 && \
     make install
 
-# Install fenics and mshr
+# Install fenics
 RUN git clone https://bitbucket.org/fenics-project/dolfin && \
     cd dolfin && \
-    git checkout tags/2019.1.0.post0 && \
-    mkdir ../dolphin_build && \
-    cd ../dolphin_build && \
+    git checkout tags/2019.1.0.post0
+
+# Install mshr
+RUN git clone https://bitbucket.org/fenics-project/mshr && \
+    cd mshr && \
+    git checkout tags/2019.1.0
+
+# Build and install dolfin
+RUN mkdir dolphin_build && \
+    cd dolphin_build && \
     CC=gcc-10 CXX=g++-10 cmake -DDOLFIN_ENABLE_SUNDIALS=false ../dolfin && \
     make install && \
-    pip3 install ./dolfin/python && \
-    git clone https://bitbucket.org/fenics-project/mshr ../mshr && \
-    cd ../mshr && \
-    git checkout tags/2019.1.0 && \
-    mkdir ../mshr_build && \
-    cd ../mshr_build && \
+    pip3 install ../dolfin/python
+
+# Build and install mshr
+RUN mkdir mshr_build && \
+    cd mshr_build && \
     CC=gcc-10 CXX=g++-10 cmake ../mshr && \
     make install && \
     pip3 install ../mshr/python
