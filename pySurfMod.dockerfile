@@ -9,14 +9,14 @@ WORKDIR /root/
 RUN chmod a+rwx /root/
 
 # install fftw with MPI
-RUN wget https://www.fftw.org/fftw-3.3.10.tar.gz
-RUN tar -xzf fftw-3.3.10.tar.gz
-RUN rm fftw-3.3.10.tar.gz
-WORKDIR /root/fftw-3.3.10
-RUN ./configure --enable-mpi
-RUN make && make install
-WORKDIR /root/
-RUN rm -r fftw*
+RUN wget https://www.fftw.org/fftw-3.3.10.tar.gz && \
+    tar -xzf fftw-3.3.10.tar.gz && \
+    rm fftw-3.3.10.tar.gz && \
+    cd fftw-3.3.10 && \
+    ./configure --enable-mpi && \
+    make && make install && \
+    cd .. && \
+    rm -r fftw-3.3.10
 
 WORKDIR /root/build/
 RUN git clone https://github.com/mpip/pfft.git
