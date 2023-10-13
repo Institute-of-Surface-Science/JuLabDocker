@@ -25,7 +25,7 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get install -
 # Install Cantera
 RUN wget -O /tmp/cantera_key.asc "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x8B658577822FF0E4CAF2AD557E9FADFA1CFBACEB" && \
     apt-key add /tmp/cantera_key.asc && \
-    apt-add-repository ppa:cantera-team/cantera && \
+    apt-add-repository "ppa:cantera-team/cantera" && \
     apt-get update && \
     apt-get install -y cantera-python3 cantera-dev cantera-common && \
     apt-get clean && \
