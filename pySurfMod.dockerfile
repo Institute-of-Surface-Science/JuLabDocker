@@ -111,8 +111,7 @@ RUN pip3 install tensorflow phonopy==2.14.0
 RUN pip3 install pyiron-atomistics==0.2.67 pyiron==0.4.7
 RUN pip3 install jupyterlab jupyterhub jupyterlab_widgets
 #sphinxdft sqsgenerator #needed?
-RUN pip3 install scikit-learn pymatgen keras
-RUN pip3 install ipyannotations nglview
+RUN pip3 install scikit-learn pymatgen keras ipyannotations nglview
 RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
 
 #WORKDIR /root/build/
