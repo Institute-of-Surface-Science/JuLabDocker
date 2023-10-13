@@ -26,7 +26,6 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get install -
 RUN apt-add-repository ppa:cantera-team/cantera && apt-get update && apt-get install -y cantera-python3 cantera-dev cantera-common && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  # Cleanup cache again after Cantera installation
 
-# Install JULIA
-RUN curl -fsSL https://install.julialang.org | sh -s -- -y
-
-ENV PATH="/root/.julia/juliaup:$PATH"
+# Install JULIA (gets too large)
+#RUN curl -fsSL https://install.julialang.org | sh -s -- -y
+#ENV PATH="/root/.julia/juliaup:$PATH"
