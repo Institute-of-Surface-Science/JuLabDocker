@@ -39,7 +39,7 @@ RUN git clone https://gitlab.com/libeigen/eigen.git && \
     mkdir ../eigen_build && cd ../eigen_build && \
     CC=gcc-10 CXX=g++-10 cmake ../eigen && make install
 
-RUN pip3 install setuptools pytest
+RUN pip3 install setuptools pytest 
 
 WORKDIR /root/build/
 RUN git clone https://github.com/sympy/sympy.git && cd sympy && git pull origin master && pip3 install .
