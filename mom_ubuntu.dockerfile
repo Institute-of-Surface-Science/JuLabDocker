@@ -12,7 +12,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libmumps-dev libmumps-ptscotch-dev libmumps-scotch-dev libgmp3-dev libmpfr-dev libmpfr-doc \
     libmpfr6 libhypre-dev petsc-dev libxml2-dev pkg-config python3-mpi4py keyboard-configuration \
     paraview paraview-dev vtk7 libhdf5-dev hdf5-tools gpaw gpaw-data lammps lammps-data \
-    liblammps-dev python3-pip \
+    liblammps-dev python3-pip libfftw3-mpi3 libfftw3-mpi-dev \
     intel-mkl-full && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  # Cleanup cache to reduce layer size
 
