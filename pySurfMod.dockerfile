@@ -1,4 +1,4 @@
-FROM svchb/mom_ubuntu:v1
+FROM svchb/mom_ubuntu:v2
 
 # add a pseudo user to get the paths correctly and deactivate passwords to get arround prompts
 #RUN adduser --disabled-password --gecos '' ubuntu
@@ -9,14 +9,14 @@ WORKDIR /root/
 RUN chmod a+rwx /root/
 
 # install fftw with MPI
-RUN wget https://www.fftw.org/fftw-3.3.10.tar.gz && \
-    tar -xzf fftw-3.3.10.tar.gz && \
-    rm fftw-3.3.10.tar.gz && \
-    cd fftw-3.3.10 && \
-    ./configure --enable-mpi && \
-    make && make install && \
-    cd .. && \
-    rm -r fftw-3.3.10
+#RUN wget https://www.fftw.org/fftw-3.3.10.tar.gz && \
+#    tar -xzf fftw-3.3.10.tar.gz && \
+#    rm fftw-3.3.10.tar.gz && \
+#    cd fftw-3.3.10 && \
+#    ./configure --enable-mpi && \
+#    make && make install && \
+#    cd .. && \
+#    rm -r fftw-3.3.10
 
 WORKDIR /root/build/
 RUN git clone https://github.com/mpip/pfft.git && \
