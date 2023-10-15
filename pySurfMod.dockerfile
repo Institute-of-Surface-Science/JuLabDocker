@@ -37,7 +37,7 @@ WORKDIR /root/build/
 RUN git clone https://gitlab.com/libeigen/eigen.git && \
     cd eigen && git checkout tags/3.3.9 && \
     mkdir ../eigen_build && cd ../eigen_build && \
-    CC=gcc-10 CXX=g++-10 cmake ../eigen && make install
+    CC=gcc-11 CXX=g++-11 cmake ../eigen && make install
 
 RUN pip3 install setuptools pytest 
 
@@ -52,7 +52,7 @@ RUN git clone https://github.com/precice/precice/ && \
     git checkout tags/v2.2.0 && \
     mkdir ../precice_build && \
     cd ../precice_build && \
-    CC=gcc-10 CXX=g++-10 cmake -DCMAKE_CXX_FLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/ -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON ../precice && \
+    CC=gcc-11 CXX=g++-11 cmake -DCMAKE_CXX_FLAGS=-I\ /usr/lib/petscdir/petsc3.12/x86_64-linux-gnu-real/include/ -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON ../precice && \
     make install -j 4
 
 # Install additional python packages
@@ -64,7 +64,7 @@ RUN wget -nc --quiet https://github.com/pybind/pybind11/archive/v2.2.3.tar.gz &&
     rm v2.2.3.tar.gz && \
     mkdir pybind_build && \
     cd pybind_build && \
-    CC=gcc-10 CXX=g++-10 cmake ../pybind11-2.2.3 && \
+    CC=gcc-11 CXX=g++-11 cmake ../pybind11-2.2.3 && \
     make install
 
 # Install fenics
@@ -80,14 +80,14 @@ RUN git clone https://bitbucket.org/fenics-project/mshr && \
 # Build and install dolfin
 RUN mkdir dolphin_build && \
     cd dolphin_build && \
-    CC=gcc-10 CXX=g++-10 cmake -DDOLFIN_ENABLE_SUNDIALS=false ../dolfin && \
+    CC=gcc-11 CXX=g++-11 cmake -DDOLFIN_ENABLE_SUNDIALS=false ../dolfin && \
     make install && \
     pip3 install ../dolfin/python
 
 # Build and install mshr
 RUN mkdir mshr_build && \
     cd mshr_build && \
-    CC=gcc-10 CXX=g++-10 cmake ../mshr && \
+    CC=gcc-11 CXX=g++-11 cmake ../mshr && \
     make install && \
     pip3 install ../mshr/python
 
