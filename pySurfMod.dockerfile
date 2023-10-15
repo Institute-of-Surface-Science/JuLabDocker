@@ -80,7 +80,7 @@ RUN git clone https://bitbucket.org/fenics-project/mshr && \
 # Build and install dolfin
 RUN mkdir dolphin_build && \
     cd dolphin_build && \
-    CC=gcc-11 CXX=g++-11 cmake -DDOLFIN_ENABLE_SUNDIALS=false ../dolfin && \
+    CC=gcc-11 CXX=g++-11 cmake -DDOLFIN_ENABLE_SUNDIALS=false -DDOLFIN_ENABLE_TRILINOS=false ../dolfin && \
     make install && \
     pip3 install ../dolfin/python
 
