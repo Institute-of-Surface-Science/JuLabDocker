@@ -73,9 +73,8 @@ RUN git clone https://bitbucket.org/fenics-project/dolfin && \
     git checkout tags/2019.1.0.post0
 
 # Install mshr
-RUN git clone https://bitbucket.org/fenics-project/mshr && \
-    cd mshr && \
-    git checkout tags/2019.1.0
+RUN git clone https://github.com/Institute-of-Surface-Science/mshr.git && \
+    cd mshr
 
 # Build and install dolfin
 RUN mkdir dolphin_build && \
