@@ -18,10 +18,10 @@ RUN chmod a+rwx /root/
 #    cd .. && \
 #    rm -r fftw-3.3.10
 
-WORKDIR /root/build/
-RUN git clone https://github.com/mpip/pfft.git && \
-    cd pfft && \
-    ./bootstrap.sh && ./configure && make && make install
+#WORKDIR /root/build/
+#RUN git clone https://github.com/mpip/pfft.git && \
+#    cd pfft && \
+#    ./bootstrap.sh && ./configure && make && make install
 
 # install sundials
 # WORKDIR /root/
