@@ -13,11 +13,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libmpfr6 libhypre-dev petsc-dev libxml2-dev pkg-config python3-mpi4py keyboard-configuration \
     paraview paraview-dev vtk7 libhdf5-dev hdf5-tools gpaw gpaw-data lammps lammps-data \
     liblammps-dev python3-pip libfftw3-mpi3 libfftw3-mpi-dev  \
-    intel-mkl-full libeigen3-dev && \
+    libeigen3-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  # Cleanup cache to reduce layer size
 
 # gets too large
-# paraview libsundials-dev
+# paraview libsundials-dev intel-mkl-full
 
 # Install Node.js
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
