@@ -68,7 +68,7 @@ RUN wget -nc --quiet https://github.com/pybind/pybind11/archive/v2.2.3.tar.gz &&
     make install
 
 # Install fenics
-RUN git clone https://bitbucket.org/fenics-project/dolfin && \
+RUN git clone https://github.com/Institute-of-Surface-Science/dolfin.git && \
     cd dolfin && \
     git checkout tags/2019.1.0.post0
 
