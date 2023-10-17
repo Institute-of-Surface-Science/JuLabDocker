@@ -24,13 +24,13 @@ RUN git clone https://github.com/mpip/pfft.git && \
     ./bootstrap.sh && ./configure && make && make install
 
 # install sundials
-WORKDIR /root/
-RUN wget https://github.com/LLNL/sundials/releases/download/v5.7.0/sundials-5.7.0.tar.gz && \
-    tar -xzf sundials-5.7.0.tar.gz && \
-    mkdir build_sundials && \
-    cd build_sundials && \
-    cmake ../sundials-5.7.0/ && make && make install && \
-    cd .. && rm -rf build_sundials sundials-5.7.0 sundials-5.7.0.tar.gz
+# WORKDIR /root/
+# RUN wget https://github.com/LLNL/sundials/releases/download/v5.7.0/sundials-5.7.0.tar.gz && \
+#     tar -xzf sundials-5.7.0.tar.gz && \
+#     mkdir build_sundials && \
+#     cd build_sundials && \
+#     cmake ../sundials-5.7.0/ && make && make install && \
+#     cd .. && rm -rf build_sundials sundials-5.7.0 sundials-5.7.0.tar.gz
 
 # install libeigen
 WORKDIR /root/build/
