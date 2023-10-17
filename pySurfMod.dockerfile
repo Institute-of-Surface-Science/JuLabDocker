@@ -69,8 +69,7 @@ RUN wget -nc --quiet https://github.com/pybind/pybind11/archive/v2.2.3.tar.gz &&
 
 # Install fenics
 RUN git clone https://github.com/Institute-of-Surface-Science/dolfin.git && \
-    cd dolfin && \
-    git checkout tags/2019.1.0.post0
+    cd dolfin
 
 # Install mshr
 RUN git clone https://github.com/Institute-of-Surface-Science/mshr.git && \
