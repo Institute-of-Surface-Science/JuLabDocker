@@ -33,11 +33,11 @@ RUN chmod a+rwx /root/
 #     cd .. && rm -rf build_sundials sundials-5.7.0 sundials-5.7.0.tar.gz
 
 # install libeigen
-WORKDIR /root/build/
-RUN git clone https://gitlab.com/libeigen/eigen.git && \
-    cd eigen && git checkout tags/3.3.9 && \
-    mkdir ../eigen_build && cd ../eigen_build && \
-    CC=gcc-11 CXX=g++-11 cmake ../eigen && make install
+# WORKDIR /root/build/
+# RUN git clone https://gitlab.com/libeigen/eigen.git && \
+#    cd eigen && git checkout tags/3.3.9 && \
+#    mkdir ../eigen_build && cd ../eigen_build && \
+#    CC=gcc-11 CXX=g++-11 cmake ../eigen && make install
 
 RUN pip3 install setuptools pytest 
 
